@@ -41,20 +41,18 @@ chmod +x setup.sh
 npm install
 ```
 
-## Running the Application
+## Running the Application (React + Vite)
 
-### Start the Server
+### Start Backend + Frontend concurrently
 ```bash
-npm run server
+npm run dev
 ```
-The server will start on `http://localhost:3000` serving both:
-- **API**: `http://localhost:3000/api/*`
-- **Frontend**: `http://localhost:3000`
 
-### Open the Application
-Navigate to `http://localhost:3000` in your web browser.
+This starts:
+- **Express API** on `http://localhost:3000`
+- **Vite React App** on `http://localhost:3001`
 
-The server automatically serves the frontend from the `client/` directory.
+Vite proxies API requests from `/api/*` to the backend automatically.
 
 ## Project Structure
 
@@ -81,10 +79,12 @@ DCE_LinuxAssessment/
 │   │   └── pathUtils.js
 │   └── data/
 │       └── questions.js            # Questions database
-├── client/                          # Frontend
-│   ├── index.html
-│   ├── styles.css
-│   └── app.js
+├── client/                          # Frontend (React + Vite)
+│   ├── index.html                   # React entry
+│   ├── index.jsx                    # React root
+│   ├── App.jsx                      # Main component
+│   ├── styles.css                   # Styles
+│   └── components/                  # React components
 ├── Visual Demo/                     # Demo videos
 ├── package.json                     # Dependencies
 └── [Documentation Files]            # *.md files

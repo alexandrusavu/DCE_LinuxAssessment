@@ -17,20 +17,20 @@ brew install node
 # 1. Run setup (installs dependencies)
 npm install
 
-# 2. Start the server
-npm run server
-# Server will start on http://localhost:3000 and serve both API and frontend
+# 2. Start backend and React frontend
+npm run dev
+# API: http://localhost:3000, Frontend: http://localhost:3001
 
 # 3. Open your browser
-# Navigate to http://localhost:3000
+# Navigate to http://localhost:3001
 # Or if the browser doesn't open automatically, just visit the URL
 ```
 
 ## Alternative: All-in-One Commands
 
 ```bash
-# Install and start server
-npm install && npm run server
+# Install deps and start both servers
+npm install && npm run dev
 ```
 
 Then open `client/index.html` in your browser.
@@ -68,14 +68,15 @@ npm run server
 ```
 
 ### "Cannot GET /api/..."
-- Make sure the server is running
-- Check that it's on port 5000
-- Look for errors in the terminal
+- Make sure backend (3000) and Vite (3001) are running (`npm run dev`)
+- Verify Vite proxy in `vite.config.js`
+- Check browser console for network errors
 
 ## Testing the Platform
 
 1. Server should show: `🚀 Server running in development mode on port 3000`
-2. Navigate to `http://localhost:3000` in your browser
+2. Vite should show: `Local: http://localhost:3001`
+3. Navigate to `http://localhost:3001` in your browser
 3. You should see three level cards (Junior available, others coming soon)
 4. Click "Start Assessment" on Junior level
 5. Complete 10 MCQ questions (exam mode - no hints)

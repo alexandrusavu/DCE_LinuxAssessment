@@ -7,29 +7,42 @@
   "scripts": {
     "start": "node server/index.js",
     "server": "nodemon server/index.js",
-    "dev": "npm run server",
-    "serve-client": "python3 -m http.server 3000 --directory client || python -m SimpleHTTPServer 3000",
+    "client": "vite",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve-client": "vite",
     "setup": "chmod +x setup.sh && ./setup.sh",
-    "lint": "eslint server/**/*.js",
+    "lint": "eslint server/**/*.js client/**/*.jsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["linux", "assessment", "education", "terminal", "bash"],
+  "keywords": [
+    "linux",
+    "assessment",
+    "education",
+    "terminal",
+    "bash"
+  ],
   "author": "",
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "helmet": "^7.1.0",
+    "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
-    "morgan": "^1.10.0"
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1",
+    "@vitejs/plugin-react": "^5.1.1",
     "concurrently": "^8.2.2",
-    "eslint": "^8.55.0"
+    "eslint": "^8.55.0",
+    "nodemon": "^3.0.1",
+    "vite": "^7.2.4"
   }
 }
