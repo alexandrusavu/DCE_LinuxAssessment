@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div id="root"></div>
+    <script type="module" src="/index.jsx"></script>
+    
+    <!-- Old vanilla JS content removed - now using React -->
+    <!--
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <h1><i class="fas fa-terminal"></i> Linux Assessment Platform</h1>
             <p class="subtitle">Test your Linux knowledge and skills</p>
         </header>
 
-        <!-- Level Selection Screen -->
         <div id="level-selection" class="screen active">
             <h2>Select Assessment Level</h2>
             <div class="level-cards">
@@ -40,98 +43,10 @@
             </div>
         </div>
 
-        <!-- MCQ Assessment Screen -->
         <div id="mcq-assessment" class="screen">
             <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
                 <span class="progress-text" id="progress-text">Question 1 of 10</span>
-            </div>
-            
-            <div class="question-container">
-                <h3 id="question-text"></h3>
-                <div id="options-container" class="options"></div>
-                <div class="navigation-buttons">
-                    <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
-                    <button id="next-btn" class="btn btn-primary">Next</button>
-                    <button id="submit-mcq-btn" class="btn btn-success" style="display: none;">Submit MCQ</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Terminal Tasks Screen -->
-        <div id="terminal-assessment" class="screen">
-            <div class="task-info">
-                <h3>Terminal Challenge <span id="task-number"></span></h3>
-                <p id="task-description"></p>
-                <div class="task-objective">
-                    <strong>Task:</strong> <span id="task-objective"></span>
-                </div>
-            </div>
-            
-            <div class="terminal-simulator">
-                <div class="terminal-header">
-                    <span class="terminal-title"><i class="fas fa-terminal"></i> student@assessment-platform:~</span>
-                </div>
-                <div class="terminal-body" id="terminal-output">
-                    <div class="terminal-line">Welcome to Linux Assessment Terminal</div>
-                    <div class="terminal-line">Type your command and press Enter to execute</div>
-                    <div class="terminal-line">Type 'help' for available commands</div>
-                    <div class="terminal-line">&nbsp;</div>
-                </div>
-                <div class="terminal-input-line">
-                    <span class="terminal-prompt">student@assessment-platform:~$</span>
-                    <input type="text" id="terminal-input" class="terminal-input" autofocus autocomplete="off" spellcheck="false">
-                </div>
-            </div>
-            
-            <div class="terminal-controls">
-                <button id="validate-btn" class="btn btn-primary"><i class="fas fa-check"></i> Validate Answer</button>
-                <button id="next-task-btn" class="btn btn-success" style="display: none;">Next Task</button>
-                <button id="finish-assessment-btn" class="btn btn-success" style="display: none;">Finish Assessment</button>
-            </div>
-        </div>
-
-        <!-- Results Screen -->
-        <div id="results" class="screen">
-            <div class="results-container">
-                <div class="results-header">
-                    <i class="fas fa-trophy results-icon"></i>
-                    <h2>Assessment Complete!</h2>
-                </div>
-                
-                <div class="score-display">
-                    <div class="score-circle">
-                        <span id="final-score" class="score-number">0</span>
-                        <span class="score-label">Score</span>
-                    </div>
-                </div>
-                
-                <div class="results-details">
-                    <h3>Summary</h3>
-                    <div class="result-item">
-                        <span>MCQ Score:</span>
-                        <span id="mcq-score">0/10</span>
-                    </div>
-                    <div class="result-item">
-                        <span>Terminal Tasks:</span>
-                        <span id="terminal-score">0/5</span>
-                    </div>
-                    <div class="result-item">
-                        <span>Overall Performance:</span>
-                        <span id="performance-level">-</span>
-                    </div>
-                </div>
-                
-                <div id="mcq-review" class="review-section">
-                    <h3>MCQ Review</h3>
-                    <div id="mcq-answers"></div>
-                </div>
-                
-                <button id="restart-btn" class="btn btn-primary"><i class="fas fa-redo"></i> Take Another Assessment</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+    -->
 </body>
 </html>

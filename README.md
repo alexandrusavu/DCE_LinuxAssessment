@@ -1,13 +1,13 @@
 # Linux Assessment Platform
 
-A modern, web-based platform for testing Linux knowledge with multiple-choice questions and an interactive bash-like simulator. Built with Node.js, Express, and modern ES modules architecture.
+A modern, web-based platform for testing Linux knowledge with multiple-choice questions and an interactive bash-like simulator. Backend built with Node.js/Express (ES Modules). Frontend built with React + Vite.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - **Node.js** v16+ ([Download](https://nodejs.org/) or `brew install node`)
 
-### Installation & Setup
+### Installation & Setup (React + Vite)
 ```bash
 # 1. Clone the repository
 git clone https://github.com/alexandrusavu/DCE_LinuxAssessment.git
@@ -16,13 +16,13 @@ cd DCE_LinuxAssessment
 # 2. Install dependencies
 npm install
 
-# 3. Start the server
-npm run server
+# 3. Start both backend (3000) and frontend (3001)
+npm run dev
 
-# 4. Open your browser to http://localhost:3000
+# 4. Open your browser to http://localhost:3001
 ```
 
-That's it! The server now serves both the API and the client application.
+Vite serves the React app on port 3001 and proxies `/api` calls to the Express API on port 3000.
 
 ## ✨ Features
 
@@ -76,10 +76,9 @@ See [SETUP.md](SETUP.md) for detailed documentation including:
 - **Dev Tools**: Nodemon, ESLint
 
 ### Frontend  
-- **HTML5**: Semantic markup
+- **React 18**: Component-based UI
+- **Vite 7**: Fast dev server and build
 - **CSS3**: Modern responsive design
-- **JavaScript**: Vanilla ES6+ (no framework)
-- **No build tools**: Direct browser execution
 
 ## 📁 Project Structure
 
@@ -106,10 +105,12 @@ DCE_LinuxAssessment/
 │   │   └── pathUtils.js
 │   └── data/                       # Questions database
 │       └── questions.js
-├── client/                          # Frontend
-│   ├── index.html                  # Main page
+├── client/                          # Frontend (React + Vite)
+│   ├── index.html                  # React entry with root div
+│   ├── index.jsx                   # React root entry point
+│   ├── App.jsx                     # Main React component
 │   ├── styles.css                  # Styles
-│   └── app.js                      # Application logic
+│   └── components/                 # React components
 ├── Visual Demo/                     # Demo videos
 └── package.json                     # Dependencies
 ```
@@ -164,9 +165,17 @@ npm run server
 ```
 
 **Can't connect to API?**
-- Ensure server is running on port 3000
+- Ensure backend is running on port 3000 and Vite on 3001 (`npm run dev`)
 - Check browser console for errors
-- Verify `client/app.js` → `API_BASE_URL: 'http://localhost:3000/api'`
+- Verify `vite.config.js` proxy: `/api` → `http://localhost:3000`
+
+## 🔧 Scripts
+
+- `npm run dev` → Runs backend and Vite client concurrently
+- `npm run server` → Runs Express API with Nodemon (port 3000)
+- `npm run client` → Runs Vite React dev server (port 3001)
+- `npm run build` → Builds React app to `dist/`
+- `npm run preview` → Serves built app locally
 
 ## 📝 License
 
