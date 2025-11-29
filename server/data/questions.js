@@ -1,5 +1,5 @@
 // Junior Level Linux Assessment Questions
-const juniorQuestions = [
+export const juniorQuestions = [
   {
     id: 1,
     type: 'mcq',
@@ -93,7 +93,7 @@ const juniorQuestions = [
 ];
 
 // Terminal simulation tasks for junior level
-const juniorTerminalTasks = [
+export const juniorTerminalTasks = [
   {
     id: 101,
     type: 'terminal',
@@ -145,8 +145,3 @@ const juniorTerminalTasks = [
     hint: 'Use grep followed by the search pattern and filename: grep <pattern> <file>'
   }
 ];
-
-module.exports = {
-  juniorQuestions,
-  juniorTerminalTasks
-};

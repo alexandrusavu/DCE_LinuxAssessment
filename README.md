@@ -1,6 +1,6 @@
 # Linux Assessment Platform
 
-A web-based platform for testing Linux knowledge with multiple-choice questions and an interactive bash-like simulator.
+A modern, web-based platform for testing Linux knowledge with multiple-choice questions and an interactive bash-like simulator. Built with Node.js, Express, and modern ES modules.
 
 ## 🚀 Quick Start
 
@@ -9,17 +9,20 @@ A web-based platform for testing Linux knowledge with multiple-choice questions 
 
 ### Installation & Setup
 ```bash
-# 1. Install dependencies
+# 1. Clone the repository
+git clone https://github.com/alexandrusavu/DCE_LinuxAssessment.git
+cd DCE_LinuxAssessment
+
+# 2. Install dependencies
 npm install
 
-# 2. Start the backend server
+# 3. Start the server
 npm run server
 
-# 3. Open client/index.html in your browser
-open client/index.html
+# 4. Open your browser to http://localhost:3000
 ```
 
-That's it! The assessment platform is now running.
+That's it! The server now serves both the API and the client application.
 
 ## ✨ Features
 

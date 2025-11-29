@@ -368,26 +368,22 @@ async function validateTask() {
         resultLine.innerHTML = `<strong>Validation: ${data.message}</strong>`;
         terminalOutput.appendChild(resultLine);
         
-        if (!data.correct && data.hint) {
-            const hintLine = document.createElement('div');
-            hintLine.className = 'terminal-line warning';
-            hintLine.innerHTML = `Hint: ${data.hint}`;
-            terminalOutput.appendChild(hintLine);
-        }
-        
         if (data.correct) {
             currentTaskCompleted = true;
             terminalAnswers[task.id] = { command, correct: true };
-            
-            // Show next/finish button
-            if (currentTaskIndex < terminalTasks.length - 1) {
-                document.getElementById('next-task-btn').style.display = 'inline-flex';
-            } else {
-                document.getElementById('finish-assessment-btn').style.display = 'inline-flex';
-            }
-            
-            document.getElementById('validate-btn').style.display = 'none';
+        } else {
+            // Record incorrect answer
+            terminalAnswers[task.id] = { command, correct: false };
         }
+        
+        // Always show next/finish button after validation (whether correct or incorrect)
+        if (currentTaskIndex < terminalTasks.length - 1) {
+            document.getElementById('next-task-btn').style.display = 'inline-flex';
+        } else {
+            document.getElementById('finish-assessment-btn').style.display = 'inline-flex';
+        }
+        
+        document.getElementById('validate-btn').style.display = 'none';
         
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     } catch (error) {
