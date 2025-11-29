@@ -17,13 +17,13 @@ brew install node
 # 1. Run setup (installs dependencies)
 npm install
 
-# 2. Start the backend server
+# 2. Start the server
 npm run server
-# Server will start on http://localhost:5000
+# Server will start on http://localhost:3000 and serve both API and frontend
 
-# 3. In a new terminal or just open the file
-open client/index.html
-# Or double-click client/index.html in Finder
+# 3. Open your browser
+# Navigate to http://localhost:3000
+# Or if the browser doesn't open automatically, just visit the URL
 ```
 
 ## Alternative: All-in-One Commands
@@ -39,12 +39,17 @@ Then open `client/index.html` in your browser.
 
 Test if the server is running:
 ```bash
-curl http://localhost:5000/api/health
+curl http://localhost:3000/api/health
 ```
 
 Expected response:
 ```json
-{"status":"OK","message":"Linux Assessment Platform API is running"}
+{
+  "status":"OK",
+  "message":"Linux Assessment Platform API is running",
+  "environment":"development",
+  "version":"1.0.0"
+}
 ```
 
 ## Common Issues
@@ -53,10 +58,10 @@ Expected response:
 - Install Node.js: https://nodejs.org/
 - Or use Homebrew: `brew install node`
 
-### "Port 5000 already in use"
+### "Port 3000 already in use"
 ```bash
 # Find and kill the process
-lsof -ti:5000 | xargs kill -9
+lsof -ti:3000 | xargs kill -9
 
 # Then restart
 npm run server
@@ -69,11 +74,13 @@ npm run server
 
 ## Testing the Platform
 
-1. Server should show: `Server is running on port 5000`
-2. Open `client/index.html` in browser
-3. You should see three level cards
+1. Server should show: `🚀 Server running in development mode on port 3000`
+2. Navigate to `http://localhost:3000` in your browser
+3. You should see three level cards (Junior available, others coming soon)
 4. Click "Start Assessment" on Junior level
-5. Answer questions and complete terminal tasks
+5. Complete 10 MCQ questions (exam mode - no hints)
+6. Complete 5 terminal tasks (single attempt per task)
+7. View your results and performance rating
 
 ## Next Steps
 

@@ -43,47 +43,51 @@ npm install
 
 ## Running the Application
 
-### Step 1: Start the Backend Server
+### Start the Server
 ```bash
 npm run server
 ```
-The API server will start on `http://localhost:5000`
+The server will start on `http://localhost:3000` serving both:
+- **API**: `http://localhost:3000/api/*`
+- **Frontend**: `http://localhost:3000`
 
-### Step 2: Open the Frontend
-Open `client/index.html` in your web browser:
-```bash
-# Using macOS
-open client/index.html
+### Open the Application
+Navigate to `http://localhost:3000` in your web browser.
 
-# Or manually open the file in your browser
-```
-
-**Alternative**: Serve the frontend with Python (optional):
-```bash
-# In a new terminal window
-cd client
-python3 -m http.server 3000
-```
-Then visit `http://localhost:3000`
+The server automatically serves the frontend from the `client/` directory.
 
 ## Project Structure
 
 ```
 DCE_LinuxAssessment/
-├── server/                      # Backend API
-│   ├── index.js                # Express server entry point
+├── server/                          # Backend API (ES Modules)
+│   ├── index.js                    # Express server entry
+│   ├── config/
+│   │   └── index.js               # Environment configuration
+│   ├── middleware/
+│   │   ├── index.js               # Middleware setup
+│   │   └── errorHandler.js        # Error handling
+│   ├── controllers/
+│   │   ├── assessment.controller.js
+│   │   └── terminal.controller.js
+│   ├── services/                   # Business logic
+│   │   ├── assessment.service.js
+│   │   ├── terminalCommand.service.js
+│   │   └── terminalSession.service.js
 │   ├── routes/
-│   │   ├── assessment.js       # MCQ routes
-│   │   └── terminal.js         # Terminal simulation routes
+│   │   ├── assessment.js
+│   │   └── terminal.js
+│   ├── utils/
+│   │   └── pathUtils.js
 │   └── data/
-│       └── questions.js        # Assessment questions database
-├── client/                      # Frontend
-│   ├── index.html              # Main HTML file
-│   ├── styles.css              # Styles
-│   └── app.js                  # Application logic
-├── package.json                # Dependencies
-├── setup.sh                    # Setup script
-└── README.md                   # Documentation
+│       └── questions.js            # Questions database
+├── client/                          # Frontend
+│   ├── index.html
+│   ├── styles.css
+│   └── app.js
+├── Visual Demo/                     # Demo videos
+├── package.json                     # Dependencies
+└── [Documentation Files]            # *.md files
 ```
 
 ## API Endpoints
@@ -91,32 +95,36 @@ DCE_LinuxAssessment/
 ### Assessment Endpoints
 - `GET /api/assessment/levels` - Get available assessment levels
 - `GET /api/assessment/questions/:level` - Get questions for specific level
-- `POST /api/assessment/submit-mcq` - Submit MCQ answers
+- `POST /api/assessment/submit-mcq` - Submit MCQ answers (exam mode)
 
 ### Terminal Endpoints
 - `POST /api/terminal/execute` - Execute a terminal command
-- `POST /api/terminal/validate` - Validate task solution
+- `POST /api/terminal/validate` - Validate task solution (exam mode - no hints)
+- `POST /api/terminal/reset` - Reset terminal session
 
 ### Health Check
-- `GET /api/health` - Check if server is running
+- `GET /api/health` - Check server status with version info
 
 ## Assessment Flow
 
 1. **Level Selection**: Choose Junior level (others coming soon)
-2. **MCQ Test**: Answer 10 multiple-choice questions
+2. **MCQ Test**: Answer 10 multiple-choice questions (Exam Mode)
+   - Single attempt per question
+   - No hints provided
    - Navigate with Previous/Next buttons
-   - Select answers by clicking options
+   - Answers saved automatically
    - Submit when complete
-3. **Terminal Tasks**: Complete 5 hands-on terminal challenges
+3. **Terminal Tasks**: Complete 5 hands-on challenges (Exam Mode)
    - Type commands in the simulated terminal
    - Execute with Enter key
-   - Get hints if needed
-   - Validate solutions
+   - Single validation attempt
+   - No hints provided
+   - Automatic progression (correct or incorrect)
 4. **Results**: View comprehensive results
-   - Overall score
-   - MCQ breakdown
-   - Terminal tasks performance
-   - Detailed explanations
+   - Overall score percentage
+   - MCQ section breakdown
+   - Terminal section performance
+   - Detailed explanations for all questions
 
 ## Terminal Simulator Features
 
