@@ -31,9 +31,9 @@ Welcome to the Linux Assessment Platform documentation! This index will help you
    ↓
 3. Run: npm install
    ↓
-4. Run: npm run server
+4. Run: npm run dev
    ↓
-5. Open: client/index.html
+5. Open: http://localhost:3001
    ↓
 6. Start learning! 🎉
 ```

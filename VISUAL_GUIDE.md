@@ -2,6 +2,8 @@
 
 This document describes the visual appearance and user interface of the platform.
 
+**Note**: The platform uses React + Vite for the frontend (port 3001) with an Express backend API (port 3000).
+
 ## 🎨 Color Scheme
 
 ```
@@ -12,6 +14,7 @@ Danger Red:      #ef4444  (Errors, incorrect answers)
 Dark Background: #1e293b  (Terminal background)
 Light Gray:      #f8fafc  (Card backgrounds)
 Purple Gradient: #667eea → #764ba2 (Page background)
+Google Title:    Multicolor gradient (Blue→Red→Yellow→Green) for main title
 ```
 
 ## 📱 Screen Layouts
@@ -21,7 +24,7 @@ Purple Gradient: #667eea → #764ba2 (Page background)
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                                                         │
-│              🖥️  Linux Assessment Platform              │
+│         🖥️  Linux Assessment Platform (multicolor)      │
 │              Test your Linux knowledge and skills       │
 │                                                         │
 ├─────────────────────────────────────────────────────────┤

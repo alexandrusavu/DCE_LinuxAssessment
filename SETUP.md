@@ -221,17 +221,19 @@ Edit `server/data/questions.js`:
 
 ### Server won't start
 ```bash
-# Check if port 5000 is in use
-lsof -ti:5000
+# Check if ports 3000/3001 are in use
+lsof -ti:3000
+lsof -ti:3001
 
-# Kill process if needed
-kill -9 $(lsof -ti:5000)
+# Kill processes if needed
+kill -9 $(lsof -ti:3000)
+kill -9 $(lsof -ti:3001)
 ```
 
 ### Cannot connect to API
-1. Ensure backend server is running on port 5000
-2. Check console for CORS errors
-3. Verify `API_BASE_URL` in `client/app.js`
+1. Ensure backend (3000) and Vite (3001) are running (`npm run dev`)
+2. Check browser console for errors
+3. Verify Vite proxy in `vite.config.js` (`/api` → `http://localhost:3000`)
 
 ### Terminal commands not working
 1. Check server logs for errors

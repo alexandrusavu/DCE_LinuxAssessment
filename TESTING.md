@@ -6,7 +6,7 @@ Before testing, ensure:
 - ✅ Node.js is installed (`node --version`)
 - ✅ Dependencies are installed (`npm install`)
 - ✅ Server is running (`npm run server`)
-- ✅ `client/index.html` is open in browser
+- ✅ React app is running on http://localhost:3001
 
 ## Test Scenarios
 
@@ -14,7 +14,7 @@ Before testing, ensure:
 
 **Test**: Verify server is running
 ```bash
-curl http://localhost:5000/api/health
+curl http://localhost:3000/api/health
 ```
 
 **Expected Response**:
@@ -33,7 +33,7 @@ curl http://localhost:5000/api/health
 
 **Test**: Fetch assessment levels
 ```bash
-curl http://localhost:5000/api/assessment/levels
+curl http://localhost:3000/api/assessment/levels
 ```
 
 **Expected Response**:
@@ -60,7 +60,7 @@ curl http://localhost:5000/api/assessment/levels
 
 **Test**: Load junior level assessment
 ```bash
-curl http://localhost:5000/api/assessment/questions/junior
+curl http://localhost:3000/api/assessment/questions/junior
 ```
 
 **Expected**:
@@ -75,10 +75,10 @@ curl http://localhost:5000/api/assessment/questions/junior
 
 ### 4. Frontend Level Selection
 
-**Test**: Open `client/index.html`
+**Test**: Navigate to http://localhost:3001
 
 **Expected UI**:
-- ✅ Header with title and icon
+- ✅ Header with Google-styled multicolor title
 - ✅ Three level cards visible
 - ✅ Junior card has "Start Assessment" button
 - ✅ Middle and Senior cards show "Coming Soon" badge
@@ -277,7 +277,7 @@ After Task 5:
 **Test**: Submit answers via API
 
 ```bash
-curl -X POST http://localhost:5000/api/assessment/submit-mcq \
+curl -X POST http://localhost:3000/api/assessment/submit-mcq \
   -H "Content-Type: application/json" \
   -d '{
     "level": "junior",
@@ -316,7 +316,7 @@ curl -X POST http://localhost:5000/api/assessment/submit-mcq \
 **Test**: Validate a command
 
 ```bash
-curl -X POST http://localhost:5000/api/terminal/validate \
+curl -X POST http://localhost:3000/api/terminal/validate \
   -H "Content-Type: application/json" \
   -d '{
     "taskId": 101,
@@ -374,7 +374,7 @@ curl -X POST http://localhost:5000/api/terminal/validate \
 
 **Scenario 2**: Invalid level
 ```bash
-curl http://localhost:5000/api/assessment/questions/invalid
+curl http://localhost:3000/api/assessment/questions/invalid
 ```
 **Expected**: 404 error message
 
@@ -421,7 +421,7 @@ Test in:
 **Tools**:
 ```bash
 # Test API response time
-time curl http://localhost:5000/api/assessment/questions/junior
+time curl http://localhost:3000/api/assessment/questions/junior
 ```
 
 **Expected**: < 0.2 seconds
