@@ -61,7 +61,6 @@ function setupEventListeners() {
             // Tab completion can be added here
         }
     });
-    document.getElementById('hint-btn').addEventListener('click', showHint);
     document.getElementById('validate-btn').addEventListener('click', validateTask);
     document.getElementById('next-task-btn').addEventListener('click', nextTask);
     document.getElementById('finish-assessment-btn').addEventListener('click', showResults);
@@ -330,18 +329,6 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
-}
-
-function showHint() {
-    const task = terminalTasks[currentTaskIndex];
-    const terminalOutput = document.getElementById('terminal-output');
-    
-    const hintLine = document.createElement('div');
-    hintLine.className = 'terminal-line warning';
-    hintLine.innerHTML = `<strong>Hint:</strong> ${task.hint}`;
-    terminalOutput.appendChild(hintLine);
-    
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
 
 async function validateTask() {
