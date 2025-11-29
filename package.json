@@ -1,0 +1,26 @@
+{
+  "name": "linux-assessment-platform",
+  "version": "1.0.0",
+  "description": "Web-based Linux assessment platform with MCQs and bash simulator",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "server": "nodemon server/index.js",
+    "dev": "npm run server",
+    "serve-client": "python3 -m http.server 3000 --directory client || python -m SimpleHTTPServer 3000",
+    "setup": "chmod +x setup.sh && ./setup.sh"
+  },
+  "keywords": ["linux", "assessment", "education", "terminal", "bash"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "concurrently": "^8.2.2"
+  }
+}
