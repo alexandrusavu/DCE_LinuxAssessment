@@ -10,6 +10,10 @@ let currentTaskIndex = 0;
 let mcqAnswers = {};
 let terminalAnswers = {};
 let currentTaskCompleted = false;
+let terminalSessionId = 'session-' + Date.now();
+let currentDir = '/home/student';
+let commandHistory = [];
+let historyIndex = -1;
 
 // DOM Elements
 const screens = {
@@ -42,9 +46,19 @@ function setupEventListeners() {
     document.getElementById('submit-mcq-btn').addEventListener('click', submitMCQ);
 
     // Terminal
-    document.getElementById('terminal-input').addEventListener('keypress', (e) => {
+    const terminalInput = document.getElementById('terminal-input');
+    terminalInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             executeCommand();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            navigateHistory('up');
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            navigateHistory('down');
+        } else if (e.key === 'Tab') {
+            e.preventDefault();
+            // Tab completion can be added here
         }
     });
     document.getElementById('hint-btn').addEventListener('click', showHint);
@@ -181,21 +195,73 @@ function loadTerminalTask(index) {
     document.getElementById('task-description').textContent = task.description;
     document.getElementById('task-objective').textContent = task.task;
 
-    // Clear terminal
+    // Clear terminal and show welcome message for first task
     const terminalOutput = document.getElementById('terminal-output');
-    terminalOutput.innerHTML = `
-        <div class="terminal-line">Task ${index + 1}: ${task.task}</div>
-        <div class="terminal-line">&nbsp;</div>
-    `;
+    if (index === 0) {
+        terminalOutput.innerHTML = `
+            <div class="terminal-line">Welcome to the Linux Assessment Terminal Simulator</div>
+            <div class="terminal-line">Type commands as you would in a real Linux terminal</div>
+            <div class="terminal-line">Use arrow keys (↑/↓) to navigate command history</div>
+            <div class="terminal-line">Type 'help' for available commands</div>
+            <div class="terminal-line">&nbsp;</div>
+            <div class="terminal-line">Task ${index + 1}: ${task.task}</div>
+            <div class="terminal-line">&nbsp;</div>
+        `;
+    } else {
+        const taskLine = document.createElement('div');
+        taskLine.className = 'terminal-line';
+        taskLine.style.marginTop = '10px';
+        taskLine.style.color = '#f59e0b';
+        taskLine.innerHTML = `<strong>Task ${index + 1}: ${task.task}</strong>`;
+        terminalOutput.appendChild(taskLine);
+        
+        const spaceLine = document.createElement('div');
+        spaceLine.className = 'terminal-line';
+        spaceLine.innerHTML = '&nbsp;';
+        terminalOutput.appendChild(spaceLine);
+    }
 
     // Reset input
     document.getElementById('terminal-input').value = '';
     document.getElementById('terminal-input').focus();
+    
+    // Update prompt
+    updatePrompt();
 
     // Update buttons
     document.getElementById('next-task-btn').style.display = 'none';
     document.getElementById('finish-assessment-btn').style.display = 'none';
     document.getElementById('validate-btn').style.display = 'inline-flex';
+    
+    // Scroll to bottom
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
+function navigateHistory(direction) {
+    const input = document.getElementById('terminal-input');
+    
+    if (direction === 'up') {
+        if (historyIndex < commandHistory.length - 1) {
+            historyIndex++;
+            input.value = commandHistory[commandHistory.length - 1 - historyIndex];
+        }
+    } else if (direction === 'down') {
+        if (historyIndex > 0) {
+            historyIndex--;
+            input.value = commandHistory[commandHistory.length - 1 - historyIndex];
+        } else {
+            historyIndex = -1;
+            input.value = '';
+        }
+    }
+}
+
+function updatePrompt() {
+    const promptElements = document.querySelectorAll('.terminal-prompt');
+    const dirName = currentDir === '/home/student' ? '~' : currentDir;
+    promptElements.forEach(el => {
+        el.textContent = `student@assessment-platform:${dirName}$`;
+    });
 }
 
 async function executeCommand() {
@@ -204,12 +270,17 @@ async function executeCommand() {
     
     if (!command) return;
 
+    // Add to history
+    commandHistory.push(command);
+    historyIndex = -1;
+
     const terminalOutput = document.getElementById('terminal-output');
     
-    // Add command to output
+    // Add command to output with current directory
     const commandLine = document.createElement('div');
     commandLine.className = 'terminal-line';
-    commandLine.innerHTML = `<span style="color: #10b981">student@linux-assessment:~$</span> ${command}`;
+    const dirName = currentDir === '/home/student' ? '~' : currentDir;
+    commandLine.innerHTML = `<span style="color: #10b981">student@assessment-platform:${dirName}$</span> ${escapeHtml(command)}`;
     terminalOutput.appendChild(commandLine);
 
     // Execute command
@@ -219,18 +290,28 @@ async function executeCommand() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ command })
+            body: JSON.stringify({ 
+                command,
+                sessionId: terminalSessionId
+            })
         });
         
         const data = await response.json();
         
         if (data.output === '[CLEAR]') {
             terminalOutput.innerHTML = '';
-        } else {
+        } else if (data.output) {
             const outputLine = document.createElement('div');
             outputLine.className = 'terminal-line';
+            outputLine.style.whiteSpace = 'pre-wrap';
             outputLine.textContent = data.output;
             terminalOutput.appendChild(outputLine);
+        }
+        
+        // Update current directory if changed
+        if (data.currentDir) {
+            currentDir = data.currentDir;
+            updatePrompt();
         }
     } catch (error) {
         console.error('Error executing command:', error);
@@ -243,6 +324,12 @@ async function executeCommand() {
     // Clear input and scroll to bottom
     input.value = '';
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function showHint() {
@@ -258,11 +345,16 @@ function showHint() {
 }
 
 async function validateTask() {
-    const input = document.getElementById('terminal-input');
-    const command = input.value.trim();
+    // Get the last command from history
+    const command = commandHistory[commandHistory.length - 1];
     
     if (!command) {
-        alert('Please enter a command to validate');
+        const terminalOutput = document.getElementById('terminal-output');
+        const errorLine = document.createElement('div');
+        errorLine.className = 'terminal-line warning';
+        errorLine.textContent = 'Please execute a command first, then click Validate';
+        terminalOutput.appendChild(errorLine);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
         return;
     }
 
@@ -276,7 +368,8 @@ async function validateTask() {
             },
             body: JSON.stringify({
                 taskId: task.id,
-                command
+                command,
+                sessionId: terminalSessionId
             })
         });
         
@@ -285,7 +378,7 @@ async function validateTask() {
         
         const resultLine = document.createElement('div');
         resultLine.className = `terminal-line ${data.correct ? 'success' : 'error'}`;
-        resultLine.innerHTML = `<strong>${data.message}</strong>`;
+        resultLine.innerHTML = `<strong>Validation: ${data.message}</strong>`;
         terminalOutput.appendChild(resultLine);
         
         if (!data.correct && data.hint) {

@@ -98,28 +98,28 @@ const juniorTerminalTasks = [
     id: 101,
     type: 'terminal',
     level: 'junior',
-    task: 'List all files in the current directory',
-    description: 'Use the appropriate command to list files and directories',
-    expectedCommand: 'ls',
-    validCommands: ['ls', 'ls -l', 'ls -la', 'ls -a'],
-    hint: 'Think about the basic listing command in Linux'
+    task: 'List all files in the current directory with details',
+    description: 'Use the list command with long format to see file details including permissions, owner, size, and modification date',
+    expectedCommand: 'ls -l',
+    validCommands: ['ls -l', 'ls -la', 'ls -al'],
+    hint: 'Use ls with the -l flag for long format listing'
   },
   {
     id: 102,
     type: 'terminal',
     level: 'junior',
-    task: 'Create a directory named "projects"',
-    description: 'Use the command to make a new directory called "projects"',
-    expectedCommand: 'mkdir projects',
-    validCommands: ['mkdir projects'],
-    hint: 'Use the mkdir command followed by the directory name'
+    task: 'Navigate to the Documents directory',
+    description: 'Change your current directory to Documents using the change directory command',
+    expectedCommand: 'cd Documents',
+    validCommands: ['cd Documents', 'cd ./Documents'],
+    hint: 'Use the cd command followed by the directory name'
   },
   {
     id: 103,
     type: 'terminal',
     level: 'junior',
-    task: 'Display the current working directory',
-    description: 'Show the full path of your current location',
+    task: 'Display the current working directory path',
+    description: 'Show the full absolute path of where you are currently located in the file system',
     expectedCommand: 'pwd',
     validCommands: ['pwd'],
     hint: 'Use the command that prints the working directory'
@@ -128,21 +128,21 @@ const juniorTerminalTasks = [
     id: 104,
     type: 'terminal',
     level: 'junior',
-    task: 'Create an empty file named "test.txt"',
-    description: 'Create a new empty file using the touch command',
-    expectedCommand: 'touch test.txt',
-    validCommands: ['touch test.txt'],
-    hint: 'Use the touch command followed by the filename'
+    task: 'Find all files named "readme.txt" starting from home',
+    description: 'Use the find command to locate all files named readme.txt in your home directory and subdirectories',
+    expectedCommand: 'find ~ -name readme.txt',
+    validCommands: ['find ~ -name readme.txt', 'find /home/student -name readme.txt', 'find . -name readme.txt'],
+    hint: 'Use find command with -name option: find <path> -name <filename>'
   },
   {
     id: 105,
     type: 'terminal',
     level: 'junior',
-    task: 'View the contents of "readme.txt"',
-    description: 'Display the contents of a file on the terminal',
-    expectedCommand: 'cat readme.txt',
-    validCommands: ['cat readme.txt', 'less readme.txt', 'more readme.txt'],
-    hint: 'Use cat, less, or more to view file contents'
+    task: 'Search for the word "Linux" in readme.txt',
+    description: 'Use grep to search for lines containing the word "Linux" in the readme.txt file',
+    expectedCommand: 'grep Linux readme.txt',
+    validCommands: ['grep Linux readme.txt', 'grep "Linux" readme.txt', 'grep linux readme.txt'],
+    hint: 'Use grep followed by the search pattern and filename: grep <pattern> <file>'
   }
 ];
 
