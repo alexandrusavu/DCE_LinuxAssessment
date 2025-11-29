@@ -7,22 +7,23 @@
 │                     USER BROWSER                            │
 │                                                             │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │            Frontend (HTML/CSS/JS)                     │  │
+│  │       Frontend (React + Vite)                        │  │
+│  │            http://localhost:3001                     │  │
 │  │                                                       │  │
-│  │  • Level Selection Screen                            │  │
-│  │  • MCQ Assessment Screen                             │  │
-│  │  • Terminal Simulator Screen                         │  │
-│  │  • Results Screen                                    │  │
+│  │  • LevelSelection Component                          │  │
+│  │  • MCQAssessment Component                           │  │
+│  │  • TerminalAssessment Component                      │  │
+│  │  • Results Component                                 │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                           │                                 │
-│                           │ HTTP/JSON                       │
+│                           │ HTTP/JSON (/api proxy)          │
 │                           ▼                                 │
 └─────────────────────────────────────────────────────────────┘
                             │
                             │
 ┌───────────────────────────▼─────────────────────────────────┐
 │                 Backend Server (Express)                    │
-│                  http://localhost:5000                      │
+│                  http://localhost:3000                      │
 │                                                             │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │              API Routes                              │  │

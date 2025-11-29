@@ -14,12 +14,12 @@
 ### ✅ Completed Features (POC)
 
 1. **Backend API Server** (Node.js + Express)
-   - REST API on port 5000
+   - REST API on port 3000
    - MCQ assessment endpoints
    - Terminal simulator endpoints
    - Question database with 10 MCQs + 5 terminal tasks
 
-2. **Frontend Application** (Vanilla HTML/CSS/JS)
+2. **Frontend Application** (React + Vite)
    - Level selection screen
    - MCQ assessment interface
    - Interactive terminal simulator
@@ -73,10 +73,12 @@ DCE_LinuxAssessment/
 │   ├── server/routes/terminal.js    - Terminal routes
 │   └── server/data/questions.js     - Question bank
 │
-└── 🎨 Frontend (3 files)
-    ├── client/index.html    - Main HTML
+├── 🎨 Frontend (React + Vite)
+    ├── client/index.html    - React entry
+    ├── client/index.jsx     - React root
+    ├── client/App.jsx       - Main component
     ├── client/styles.css    - Styles
-    └── client/app.js        - Application logic
+    └── client/components/   - React components
 ```
 
 **Total Files Created**: 18
@@ -92,15 +94,17 @@ DCE_LinuxAssessment/
 - **Dev Tools**: Nodemon
 
 ### Frontend
-- **HTML5**: Semantic markup
+- **React 18**: Component-based UI
+- **Vite 7**: Fast dev server and build tool
 - **CSS3**: Modern styling, animations, responsive design
-- **JavaScript**: Vanilla ES6+
 - **Icons**: Font Awesome 6.4
 
-### No Build Tools Required
-- Runs directly in browser
-- No webpack, babel, or bundlers needed
-- Simple `npm install` + `npm run server`
+### Development Workflow
+- Backend API on port 3000 (Express)
+- Frontend dev server on port 3001 (Vite)
+- Vite proxies `/api` requests to backend
+- Hot Module Replacement (HMR) for fast development
+- Simple `npm install` + `npm run dev` to start both servers
 
 ---
 
