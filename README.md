@@ -1,6 +1,6 @@
 # Linux Assessment Platform
 
-A modern, web-based platform for testing Linux knowledge with multiple-choice questions and an interactive bash-like simulator. Built with Node.js, Express, and modern ES modules.
+A modern, web-based platform for testing Linux knowledge with multiple-choice questions and an interactive bash-like simulator. Built with Node.js, Express, and modern ES modules architecture.
 
 ## 🚀 Quick Start
 
@@ -26,10 +26,12 @@ That's it! The server now serves both the API and the client application.
 
 ## ✨ Features
 
+- **Exam Mode Assessment**: No hints, single attempt per question - just like a real certification
 - **MCQ Tests**: 10 comprehensive multiple-choice questions
-- **Interactive Terminal**: 5 hands-on bash simulation tasks
-- **Real-time Validation**: Instant feedback on answers
+- **Interactive Terminal**: 5 hands-on bash simulation tasks  
+- **Real-time Validation**: Instant feedback - correct or incorrect
 - **Detailed Results**: Score breakdown with explanations
+- **Modern Architecture**: ES modules, service-oriented design, security middleware
 - **Junior Level Assessment**: Basic Linux commands and concepts
 
 ## 📚 What's Included (POC)
@@ -65,34 +67,69 @@ See [SETUP.md](SETUP.md) for detailed documentation including:
 
 ## 🛠 Tech Stack
 
-- **Backend**: Node.js + Express
-- **Frontend**: Vanilla JavaScript, HTML5, CSS3
-- **Terminal Simulator**: Custom implementation with command validation
-- **No build tools required**: Run directly in browser
+### Backend
+- **Runtime**: Node.js v16+
+- **Framework**: Express.js 4.18
+- **Architecture**: ES Modules, Service-Oriented
+- **Security**: Helmet, Express Rate Limit
+- **Logging**: Morgan
+- **Dev Tools**: Nodemon, ESLint
+
+### Frontend  
+- **HTML5**: Semantic markup
+- **CSS3**: Modern responsive design
+- **JavaScript**: Vanilla ES6+ (no framework)
+- **No build tools**: Direct browser execution
 
 ## 📁 Project Structure
 
 ```
 DCE_LinuxAssessment/
-├── server/              # Backend API
-│   ├── index.js        # Express server
-│   ├── routes/         # API routes
-│   └── data/           # Questions database
-├── client/             # Frontend
-│   ├── index.html      # Main page
-│   ├── styles.css      # Styles
-│   └── app.js          # Application logic
-└── package.json        # Dependencies
+├── server/                          # Backend API (ES Modules)
+│   ├── index.js                    # Express server entry
+│   ├── config/                     # Configuration
+│   │   └── index.js               # Environment settings
+│   ├── middleware/                 # Middleware layer
+│   │   ├── index.js               # Middleware setup
+│   │   └── errorHandler.js        # Error handling
+│   ├── controllers/                # HTTP request handlers
+│   │   ├── assessment.controller.js
+│   │   └── terminal.controller.js
+│   ├── services/                   # Business logic
+│   │   ├── assessment.service.js
+│   │   ├── terminalCommand.service.js
+│   │   └── terminalSession.service.js
+│   ├── routes/                     # API routes
+│   │   ├── assessment.js
+│   │   └── terminal.js
+│   ├── utils/                      # Utilities
+│   │   └── pathUtils.js
+│   └── data/                       # Questions database
+│       └── questions.js
+├── client/                          # Frontend
+│   ├── index.html                  # Main page
+│   ├── styles.css                  # Styles
+│   └── app.js                      # Application logic
+├── Visual Demo/                     # Demo videos
+└── package.json                     # Dependencies
 ```
 
 ## 🌐 API Endpoints
 
-- `GET /api/health` - Server health check
-- `GET /api/assessment/levels` - Available levels
-- `GET /api/assessment/questions/:level` - Get questions
-- `POST /api/assessment/submit-mcq` - Submit answers
-- `POST /api/terminal/validate` - Validate terminal command
-- `POST /api/terminal/execute` - Execute command simulation
+Base URL: `http://localhost:3000/api`
+
+### Assessment
+- `GET /api/assessment/levels` - Get available levels
+- `GET /api/assessment/questions/:level` - Get questions for level
+- `POST /api/assessment/submit-mcq` - Submit MCQ answers
+
+### Terminal
+- `POST /api/terminal/execute` - Execute terminal command
+- `POST /api/terminal/validate` - Validate task solution (exam mode)
+- `POST /api/terminal/reset` - Reset terminal session
+
+### Health
+- `GET /api/health` - Server health check with version info
 
 ## 📊 Scoring
 
@@ -121,14 +158,15 @@ Performance Levels:
 
 **Server won't start?**
 ```bash
-# Kill process on port 5000
-kill -9 $(lsof -ti:5000)
+# Kill process on port 3000
+kill -9 $(lsof -ti:3000)
 npm run server
 ```
 
 **Can't connect to API?**
-- Ensure server is running on port 5000
-- Check `client/app.js` → `API_BASE_URL`
+- Ensure server is running on port 3000
+- Check browser console for errors
+- Verify `client/app.js` → `API_BASE_URL: 'http://localhost:3000/api'`
 
 ## 📝 License
 
