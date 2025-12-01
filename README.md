@@ -1,4 +1,4 @@
-# Linux Assessment Platform
+# Linux Assessment Platform for DCE
 
 A modern, web-based platform for testing Linux knowledge with multiple-choice questions and an interactive bash-like simulator. Backend built with Node.js/Express (ES Modules). Frontend built with React + Vite.
 
@@ -184,3 +184,5 @@ MIT License
 ---
 
 **Start your Linux learning journey today! 🐧**
+
+
